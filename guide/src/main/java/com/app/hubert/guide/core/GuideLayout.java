@@ -249,11 +249,16 @@ public class GuideLayout extends FrameLayout {
     }
 
     private void dismiss() {
-        if (getParent() != null) {
-            ((ViewGroup) getParent()).removeView(this);
-            if (listener != null) {
-                listener.onGuideLayoutDismiss(this);
+        try {
+            ViewGroup viewGroup = (ViewGroup) getParent();
+            if (viewGroup != null) {
+                viewGroup.removeView(this);
+                if (listener != null) {
+                    listener.onGuideLayoutDismiss(this);
+                }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
